@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "ServletGestionClient", urlPatterns = "/gestionClient")
-public class ServletGestionClient extends HttpServlet {
+@WebServlet(name = "ServletGestionClient", urlPatterns = "/creationClient")
+public class ServletCreationClient extends HttpServlet {
 
     @Override
     public void init() {
@@ -20,7 +20,7 @@ public class ServletGestionClient extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("gestionClient.jsp").forward(request, response);
+        request.getRequestDispatcher("creationClient.jsp").forward(request, response);
     }
 
     @Override

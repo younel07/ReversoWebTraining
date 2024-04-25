@@ -263,16 +263,16 @@ public class DaoClient {
      */
 
     public static void deletClient (int idClient) throws Exception {
-        PreparedStatement deletClient = null;
-        String sql = "DELETE FROM client WHERE IDCLIENT = ?";
         Connection con = Connexion.startConnection();
-        if (con==null){throw new DaoException("Problem d'accés a la base de données", 5);}
-
         try{
+            PreparedStatement deletClient = null;
+            String sql = "DELETE FROM client WHERE IDCLIENT = ?";
+
             con.setAutoCommit(false);
             deletClient =  con.prepareStatement(sql);
 
             deletClient.setInt(1, idClient);
+            deletClient.executeUpdate();
 
             con.commit();
         }catch (SQLException ex){
@@ -282,13 +282,6 @@ public class DaoClient {
                 con.rollback();
             }
             throw ex;
-        }finally {
-            if (deletClient !=null){
-                deletClient.close();
-            }
-            if (con != null){
-                con.setAutoCommit(true);
-            }
         }
     }
 }

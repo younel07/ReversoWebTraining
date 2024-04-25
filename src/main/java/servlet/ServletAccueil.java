@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,6 +49,24 @@ public class ServletAccueil extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        if (request.getParameter("selectedEntity") != null) {
+        String selectedEtitny = request.getParameter("selectedEntity");
+
+        HttpSession session = request.getSession();
+        session.setAttribute("selectedEntity", selectedEtitny);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("ModifierClient");
+        dispatcher.forward(request, response);
+        }else {
+            String selectedEtitny = request.getParameter("deleteClient");
+
+            HttpSession session = request.getSession();
+            session.setAttribute("deleteClient", selectedEtitny);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("SupprimerCient");
+            dispatcher.forward(request, response);
+        }
 
     }
 

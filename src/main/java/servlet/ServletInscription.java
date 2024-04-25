@@ -1,6 +1,7 @@
 package servlet;
 
 import Dao.DaoUser;
+import entites.EntitiesException;
 import entites.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,8 +11,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "ServletIndex", urlPatterns = "/login")
-public class ServletIndex extends HttpServlet {
+@WebServlet(name = "ServletInscription", urlPatterns = "/inscription")
+public class ServletInscription extends HttpServlet {
 
     @Override
     public void init() {
@@ -20,35 +21,39 @@ public class ServletIndex extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Récupérer les paramètres du formulaire
+        String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        try {
-            // Utiliser le DAO pour rechercher l'utilisateur par email
-            User user = DaoUser.findByEmail(email);
+        // Validation des données (à faire)
 
-            // Vérifier si l'utilisateur existe et si le mot de passe correspond
-            if (user != null && user.getPassword().equals(password)) {
-                // Authentification réussie
-                // Rediriger l'utilisateur vers la page d'accueil par exemple
-                response.sendRedirect("accueil");
-            } else {
-                // Authentification échouée
-                // Rediriger l'utilisateur vers une page d'erreur ou de connexion
-                response.sendRedirect("login");
-            }
+        // Créer un nouvel utilisateur
+        User newUser = null;
+        try {
+            newUser = new User(username, email, password);
+        } catch (EntitiesException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            // Utiliser le DAO pour créer l'utilisateur dans la base de données
+            DaoUser.createUser(newUser);
+
+            // Redirection vers une page de confirmation d'inscription
+            response.sendRedirect("Accueil");
         } catch (Exception e) {
             // Gérer les exceptions ici (par exemple, renvoyer vers une page d'erreur)
             e.printStackTrace(); // À remplacer par la gestion appropriée des exceptions
-            response.sendRedirect("login");
+            response.sendRedirect("login");//a gerer pour la page d'erreur
         }
     }
+
 
     @Override
     public void destroy() {

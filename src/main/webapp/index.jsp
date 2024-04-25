@@ -12,6 +12,7 @@
 <body>
 <main>
     <article>
+        <form action="login" method="post">
         <div class="logoAvatar">
             <div class="logo" id="logoR">
                 <p>
@@ -21,8 +22,7 @@
                          title="company logo">
                 </p>
             </div>
-            <dr>
-                <dr>
+
                     <div class="avatar" id="avatarID">
                         <img class="avatar" src="images/Rounded-31-512.webp"
                              height="100">
@@ -30,7 +30,7 @@
         </div>
         <div class="login_password">
             <div class="login">
-                <input id = "email" class="Email_input" type="email"
+                <input id = "email" name="email" class="Email_input" type="email"
                        placeholder="entrez votre Email"
                        autofocus="1" aria-label="Email">
             </div>
@@ -42,15 +42,19 @@
         </div>
         <div>
             <!-- Bouton de connexion -->
-            <button>
-                <a href="accueil">Connexion</a>
-            </button>
+            <button id="connexionBtn">Connection</button>
         </div>
+            <br>
+            <br>
+        </form>
+            <button id="inscriptionBtn">Inscription</button>
+
     </article>
 </main>
 <footer>
 
 </footer>
 
+<script src="script/index.js"></script>
 </body>
 </html>

@@ -91,5 +91,7 @@
              title="small company logo">
     </p>
 </footer>
+
+<script src="script/AfficherListClient.js"></script>
 </body>
 </html>

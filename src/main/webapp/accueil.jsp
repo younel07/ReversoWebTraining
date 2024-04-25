@@ -33,7 +33,7 @@
     <table>
         <tr>
             <td><lable for="client-checkbox"> Client:</lable></td>
-            <td><input type="radio" name="client-checkbox" id="client-checkbox" onchange="updateActions()" src="accueil"></td>
+            <td><input type="radio" name="client-checkbox" id="client-checkbox" onchange="updateActions()"></td>
 
         </tr>
         <br/>
@@ -45,33 +45,50 @@
         </tr>
     </table>
     <article>
+        <form action="accueil" method="post">
+            <section id="ComboBoxEntitesID" class="ComboBoxEntites">
+                <select style="display: none" id="client-select" name="client">
 
-        <section id="ComboBoxEntitesID" class="ComboBoxEntites">
-            <select style="display: none" id="client-select" name="client">
+                    <option name="entite" id="client-combobox" value="">Choisir un client</option>
+                    <%
+                        for (Client client : (List<Client>) request.getAttribute("clients")) {
+                            String rs = client.getRaisonSociale();
+                    %>
+                    <option value="<%= rs %>"><%= rs%></option>
+                    <%
+                        }
+                    %>
 
-                <option name="entite" id="client-combobox" value="">Choisir un client</option>
-                <%
-                    for (Client client : (List<Client>) request.getAttribute("clients")) {
-                        String rs = client.getRaisonSociale();
-                %>
-                <option value="<%= rs %>"><%= rs%></option>
-                <%
-                    }
-                %>
+                </select >
 
-            </select >
+                <select style="display: none" id="prospect-select" name="prospect">
+                    <option name="entite" id="prospect-combobox" value="">Choisir un prospect</option>
+                    <%
+                        for (Prospect prospect : (List<Prospect>) request.getAttribute("prospects")) {
+                            String rs = prospect.getRaisonSociale();
+                    %>
+                    <option value="<%= rs %>"><%= rs%></option>
+                    <%
+                        }%>
+                </select>
 
-            <select style="display: none" id="prospect-select" name="prospect">
-                <option name="entite" id="prospect-combobox" value="">Choisir un prospect</option>
-                <%
-                    for (Prospect prospect : (List<Prospect>) request.getAttribute("prospects")) {
-                        String rs = prospect.getRaisonSociale();
-                %>
-                <option value="<%= rs %>"><%= rs%></option>
-                <%
-                    }%>
-            </select>
-        </section>
+            </section>
+            <input type="hidden" id="selected-entity" name="selectedEntity" value="" >
+
+
+            <section id="ButtonsFormId" class="Bottons">
+            <div class="btnUpdate">
+                <button type="submit" id="btnUpdateId">
+                    <a>Modifier</a>
+                </button>
+            </div>
+                <div class="btnDelete">
+                    <button id="btnDeleteId">
+                        <a>Supprimer</a>
+                    </button>
+                </div>
+            </section>
+        </form>
         <!--section buttons-->
         <section id="ButtonsId" class="Bottons">
             <div class="btnAfficherBDD">
@@ -84,22 +101,15 @@
                     <a>Nouveau</a>
                 </button>
             </div>
-            <div class="btnUpdate">
-                <button id="btnUpdateId">
-                    <a>Modifier</a>
-                </button>
-            </div>
-            <div class="btnDelete">
-                <button id="btnDeleteId">
-                    <a>Supprimer</a>
-                </button>
-            </div>
-            <div id="btnQuitId" class="btnQuit">
-                <button id="btnQuit">
-                    Quit
-                </button>
-            </div>
 
+
+        </section>
+        <section id="ButtonsQuitId" class="Bottons">
+        <div id="btnQuitId" class="btnQuit">
+            <button id="btnQuit">
+                Quit
+            </button>
+        </div>
         </section>
     </article>
 </main>

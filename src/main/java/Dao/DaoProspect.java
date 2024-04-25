@@ -274,6 +274,7 @@ public class DaoProspect {
             deletProspect =  con.prepareStatement(sql);
 
             deletProspect.setInt(1, idProspect);
+            deletProspect.executeUpdate();
 
             con.commit();
         }catch (SQLException ex){
